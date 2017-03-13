@@ -41,15 +41,16 @@ public class MainActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         api = retrofit.create(Api.class);
-
-
+        adapter = new ExchangeRateAdapter(exchangeRates, MainActivity.this);
+        recyclerView.setAdapter(adapter);
         api.getExchangeRate().enqueue(new Callback<List<ExchangeRate>>() {
             @Override
             public void onResponse(Call<List<ExchangeRate>> call, Response<List<ExchangeRate>> response) {
                 if (!(response == null)) {
-                    exchangeRates = response.body();
-                    adapter = new ExchangeRateAdapter(exchangeRates, MainActivity.this);
-                    recyclerView.setAdapter(adapter);
+                    exchangeRates.addAll(response.body());
+                    recyclerView.getAdapter().notifyDataSetChanged();
+
+
                 }
             }
 

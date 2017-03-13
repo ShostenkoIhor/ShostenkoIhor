@@ -22,8 +22,7 @@ public class ExchangeRateAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private int lastPosition;
 
 
-    public ExchangeRateAdapter(List<ExchangeRate> list, Context context) {
-        this.mList = list;
+    public ExchangeRateAdapter(Context context) {
         this.context = context;
     }
 
@@ -131,6 +130,9 @@ public class ExchangeRateAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         holder.itemView.startAnimation(animation);
         lastPosition = position;
     }
-
+    public void addCurrencyEntity(List<ExchangeRate> list) {
+        mList=list;
+        notifyItemInserted(getItemCount());
+    }
 
 }
